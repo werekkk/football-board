@@ -5,13 +5,17 @@ import jwernikowski.domain.GameRepository;
 import jwernikowski.domain.Score;
 import jwernikowski.domain.Team;
 
+import java.util.List;
+
 public class GameApplicationService {
 
 	private final GameRepository gameRepository;
+	private final BoardSummaryDtoFactory boardSummaryFactory;
 
 	public GameApplicationService(GameRepository gameRepository) {
 
 		this.gameRepository = gameRepository;
+		this.boardSummaryFactory = new BoardSummaryDtoFactory();
 	}
 
 	/**
@@ -51,6 +55,8 @@ public class GameApplicationService {
 
 	public BoardSummaryDto getSummary() {
 
-		throw new IllegalStateException("not implemented");
+		List<Game> allGames = gameRepository.getAll();
+
+		return boardSummaryFactory.create(allGames);
 	}
 }

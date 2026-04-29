@@ -4,6 +4,7 @@ import jwernikowski.domain.Game;
 import jwernikowski.domain.GameRepository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -17,6 +18,14 @@ public class InMemoryGameRepository implements GameRepository {
 
 		return find(id)
 			.orElseThrow(() -> new IllegalArgumentException("Game with id " + id + " not found"));
+	}
+
+	@Override
+	public List<Game> getAll() {
+
+		return games.values()
+			.stream()
+			.toList();
 	}
 
 	@Override

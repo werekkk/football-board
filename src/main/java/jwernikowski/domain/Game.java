@@ -53,6 +53,11 @@ public class Game {
 		return awayTeamScore;
 	}
 
+	public int getTotalScore() {
+
+		return homeTeamScore.value() + awayTeamScore.value();
+	}
+
 	public void updateScore(Score homeTeamScore, Score awayTeamScore) {
 
 		this.homeTeamScore = homeTeamScore;
