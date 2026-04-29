@@ -7,6 +7,7 @@ import jwernikowski.infrastructure.InMemoryGameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
@@ -88,10 +89,61 @@ class GameApplicationServiceTest {
 		gameRepository.save(game);
 
 		// when & then
-
 		assertThrows(
 			IllegalArgumentException.class,
 			() -> applicationService.finishGame(game.getId() + 100L)
+		);
+	}
+
+	@Test
+	void shouldUpdateScore() {
+
+		// given
+		Game game1 = new Game(new Team("Spain"), new Team("Brazil"));
+		Game game2 = new Game(new Team("Germany"), new Team("France"));
+
+		gameRepository.save(game1);
+		gameRepository.save(game2);
+
+		// when
+		applicationService.updateScore(new UpdateScoreCommand(
+			game1.getId(),
+			1,
+			5
+		));
+
+		// then
+		assertThat(game1.getHomeTeamScore().value()).isEqualTo(1);
+		assertThat(game1.getHomeTeamScore().value()).isEqualTo(5);
+		assertThat(game2.getHomeTeamScore().value()).isEqualTo(0);
+		assertThat(game2.getHomeTeamScore().value()).isEqualTo(0);
+	}
+
+	@ParameterizedTest
+	@MethodSource
+	void shouldNotUpdateScore(boolean correctId, int homeScore, int awayScore) {
+
+		// given
+		Game game = new Game(new Team("Spain"), new Team("Brazil"));
+		UpdateScoreCommand command = new UpdateScoreCommand(
+			correctId ? game.getId() : game.getId() + 100L,
+			homeScore,
+			awayScore
+		);
+
+		// when & then
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> applicationService.updateScore(command)
+		);
+	}
+
+	private static Stream<Arguments> shouldNotUpdateScore() {
+
+		return Stream.of(
+			Arguments.of(false, 5, 6),
+			Arguments.of(true, -12, 6),
+			Arguments.of(true, 5, -4323443)
 		);
 	}
 }

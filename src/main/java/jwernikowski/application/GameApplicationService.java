@@ -37,4 +37,8 @@ public class GameApplicationService {
 
 		gameRepository.delete(game);
 	}
+
+	public void updateScore(UpdateScoreCommand command) {
+
+	}
 }
