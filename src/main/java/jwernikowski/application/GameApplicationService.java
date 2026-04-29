@@ -33,5 +33,8 @@ public class GameApplicationService {
 
 	public void finishGame(long gameId) {
 
+		Game game = gameRepository.get(gameId);
+
+		gameRepository.delete(game);
 	}
 }
