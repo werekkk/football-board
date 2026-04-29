@@ -1,6 +1,6 @@
 # Football Board
 
-A recruitment exercise built using Java with OO and TTD approach.
+A recruitment exercise built using Java with OO and TDD approach.
 
 ## Running
 
