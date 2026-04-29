@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class InMemoryGameRepository implements GameRepository {
 
-	private Map<Long, Game> games = new HashMap<>();
+	private final Map<Long, Game> games = new HashMap<>();
 	private long nextId = 1;
 
 	@Override

@@ -10,11 +10,5 @@ public record BoardSummaryDto(
 		String awayTeam,
 		int homeTeamScore,
 		int awayTeamScore
-	) {
-
-		int totalScore() {
-
-			return homeTeamScore + awayTeamScore;
-		}
-	}
+	) {}
 }

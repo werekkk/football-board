@@ -15,7 +15,7 @@ public class Game {
 
 		if (teamsInvalid(homeTeam, awayTeam)) {
 
-			throw new IllegalArgumentException(String.format("Creating a game with invalid teams: $s and $s", homeTeam, awayTeam));
+			throw new IllegalArgumentException(String.format("Creating a game with invalid teams: %s and %s", homeTeam, awayTeam));
 		}
 
 		this.homeTeam = homeTeam;
