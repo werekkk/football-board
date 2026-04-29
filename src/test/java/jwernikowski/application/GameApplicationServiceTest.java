@@ -125,6 +125,9 @@ class GameApplicationServiceTest {
 
 		// given
 		Game game = new Game(new Team("Spain"), new Team("Brazil"));
+
+		gameRepository.save(game);
+
 		UpdateScoreCommand command = new UpdateScoreCommand(
 			correctId ? game.getId() : game.getId() + 100L,
 			homeScore,
