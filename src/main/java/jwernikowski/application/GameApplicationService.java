@@ -2,6 +2,7 @@ package jwernikowski.application;
 
 import jwernikowski.domain.Game;
 import jwernikowski.domain.GameRepository;
+import jwernikowski.domain.Score;
 import jwernikowski.domain.Team;
 
 public class GameApplicationService {
@@ -40,5 +41,11 @@ public class GameApplicationService {
 
 	public void updateScore(UpdateScoreCommand command) {
 
+		Game game = gameRepository.get(command.gameId());
+
+		Score homeTeamScore = new Score(command.homeTeamScore());
+		Score awayTeamScore = new Score(command.awayTeamScore());
+
+		game.updateScore(homeTeamScore, awayTeamScore);
 	}
 }

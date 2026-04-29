@@ -114,9 +114,9 @@ class GameApplicationServiceTest {
 
 		// then
 		assertThat(game1.getHomeTeamScore().value()).isEqualTo(1);
-		assertThat(game1.getHomeTeamScore().value()).isEqualTo(5);
+		assertThat(game1.getAwayTeamScore().value()).isEqualTo(5);
 		assertThat(game2.getHomeTeamScore().value()).isEqualTo(0);
-		assertThat(game2.getHomeTeamScore().value()).isEqualTo(0);
+		assertThat(game2.getAwayTeamScore().value()).isEqualTo(0);
 	}
 
 	@ParameterizedTest

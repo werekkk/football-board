@@ -5,8 +5,8 @@ public class Game {
 	private long id;
 	private final Team homeTeam;
 	private final Team awayTeam;
-	private final Score homeTeamScore;
-	private final Score awayTeamScore;
+	private Score homeTeamScore;
+	private Score awayTeamScore;
 
 	public Game(
 		Team homeTeam,
@@ -51,5 +51,11 @@ public class Game {
 
 	public Score getAwayTeamScore() {
 		return awayTeamScore;
+	}
+
+	public void updateScore(Score homeTeamScore, Score awayTeamScore) {
+
+		this.homeTeamScore = homeTeamScore;
+		this.awayTeamScore = awayTeamScore;
 	}
 }
