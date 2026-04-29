@@ -5,9 +5,7 @@ import jwernikowski.domain.GameRepository;
 import jwernikowski.infrastructure.InMemoryGameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
@@ -39,11 +37,11 @@ class GameApplicationServiceTest {
 
 		// then
 		assertThat(gameId).isGreaterThan(0L);
-		assertThat(game.id()).isEqualTo(gameId);
-		assertThat(game.awayTeam().name()).isEqualTo(command.awayTeam());
-		assertThat(game.homeTeam().name()).isEqualTo(command.homeTeam());
-		assertThat(game.awayTeamScore().value()).isEqualTo(0);
-		assertThat(game.homeTeamScore().value()).isEqualTo(0);
+		assertThat(game.getId()).isEqualTo(gameId);
+		assertThat(game.getAwayTeam().name()).isEqualTo(command.awayTeam());
+		assertThat(game.getHomeTeam().name()).isEqualTo(command.homeTeam());
+		assertThat(game.getAwayTeamScore().value()).isEqualTo(0);
+		assertThat(game.getHomeTeamScore().value()).isEqualTo(0);
 	}
 
 	@ParameterizedTest
