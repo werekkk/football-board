@@ -48,4 +48,9 @@ public class GameApplicationService {
 
 		game.updateScore(homeTeamScore, awayTeamScore);
 	}
+
+	public BoardSummaryDto getSummary() {
+
+		throw new IllegalStateException("not implemented");
+	}
 }

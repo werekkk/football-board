@@ -146,4 +146,51 @@ class GameApplicationServiceTest {
 			Arguments.of(true, 5, -4323443)
 		);
 	}
+
+	@Test
+	void shouldReturnEmptySummary() {
+
+		// when
+		BoardSummaryDto summary = applicationService.getSummary();
+
+		// then
+		assertThat(summary.games()).isEmpty();
+	}
+
+	@Test
+	void shouldReturnSummary() {
+
+		// given
+		gameWithScore("Mexico", "Canada", 0, 5);
+		gameWithScore("Spain", "Brazil", 10, 2);
+		gameWithScore("Germany", "France", 2, 2);
+		gameWithScore("Uruguay", "Italy", 6, 6);
+		gameWithScore("Argentina", "Australia", 3, 1);
+
+		// when
+		BoardSummaryDto summary = applicationService.getSummary();
+
+		// then
+		assertThat(summary.games()).containsExactly(
+			new BoardSummaryDto.BoardGameDto("Uruguay", "Italy", 6, 6),
+			new BoardSummaryDto.BoardGameDto("Spain", "Brazil", 10, 2),
+			new BoardSummaryDto.BoardGameDto("Mexico", "Canada", 0, 5),
+			new BoardSummaryDto.BoardGameDto("Argentina", "Australia", 3, 1),
+			new BoardSummaryDto.BoardGameDto("Germany", "France", 2, 2)
+		);
+	}
+
+	private void gameWithScore(String homeTeam, String awayTeam, int homeTeamScore, int awayTeamScore) {
+
+		long gameId = applicationService.startGame(new StartGameCommand(
+			homeTeam,
+			awayTeam
+		));
+
+		applicationService.updateScore(new UpdateScoreCommand(
+			gameId,
+			homeTeamScore,
+			awayTeamScore
+		));
+	}
 }
