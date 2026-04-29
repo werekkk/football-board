@@ -2,6 +2,7 @@ package jwernikowski.application;
 
 import jwernikowski.domain.Game;
 import jwernikowski.domain.GameRepository;
+import jwernikowski.domain.Team;
 import jwernikowski.infrastructure.InMemoryGameRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -61,6 +62,36 @@ class GameApplicationServiceTest {
 			new StartGameCommand(null, null),
 			new StartGameCommand("", ""),
 			new StartGameCommand("Mexico", "Mexico")
+		);
+	}
+
+	@Test
+	void shouldFinishExistingGame() {
+
+		// given
+		Game game = new Game(new Team("Spain"), new Team("Brazil"));
+		gameRepository.save(game);
+
+		// when & then
+		applicationService.finishGame(game.getId());
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> gameRepository.get(game.getId())
+		);
+	}
+
+	@Test
+	void shouldNotFinishNonExistingGame() {
+
+		// given
+		Game game = new Game(new Team("Spain"), new Team("Brazil"));
+		gameRepository.save(game);
+
+		// when & then
+
+		assertThrows(
+			IllegalArgumentException.class,
+			() -> applicationService.finishGame(game.getId() + 100L)
 		);
 	}
 }

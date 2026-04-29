@@ -30,4 +30,8 @@ public class GameApplicationService {
 
 		return game.getId();
 	}
+
+	public void finishGame(long gameId) {
+
+	}
 }
